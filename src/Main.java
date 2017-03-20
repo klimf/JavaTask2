@@ -7,11 +7,13 @@ public class Main {
         set.add("3");
         set.add("4");
         set.add("5");
-        set.add("6");
+        set.add("6", "7", "8");
 
-        set.add(3, "99");
+        set.addFirst("11");
+        set.add(3, "99", "100", "101");
         for (int i = 0; i < set.size(); i++){
-            System.out.println(set.get(i));
+            System.out.print(set.get(i) + " ");
         }
+
     }
 }
