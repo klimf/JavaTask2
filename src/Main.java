@@ -14,10 +14,13 @@ public class Main {
         set1.add(3, "99", "100", "101");
         set1.add(8, set2);
 
+        set1.remove(1,3);
 
         for (int i = 0; i < set1.size(); i++){
             System.out.print(set1.get(i) + " ");
         }
+
+        System.out.println();
 
         Class newClass = new Class(0, "zero");
         LinkedSet<Class> classSet = new LinkedSet<>(

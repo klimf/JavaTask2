@@ -100,16 +100,38 @@ public class LinkedSet<E> {
         size += newSet.size();
     }
 
-    public void change(int index, E itemToChange) {
-        throw new NotImplementedException();
+    public void replace(int index, E itemToChange) {
+        getItem(index).value = itemToChange;
     }
 
     public void remove(int index) {
-        throw new NotImplementedException();
+        Item<E> item = getItem(index);
+        item.next.prev = item.prev;
+        item.prev.next = item.next;
     }
 
     public void remove(E itemToRemove) {
-        throw new NotImplementedException();
+        Item<E> item = getItem(itemToRemove);
+        item.next.prev = item.prev;
+        item.prev.next = item.next;
+    }
+
+    public void remove(int index1, int index2) {
+        if (index1 < 0 || index1 >= size) {
+            throw new IndexOutOfBoundsException("Index 1 " + index1 + " isn't in range (0 - " + (size - 1) + ")");
+        }
+        if (index2 < 0 || index2 >= size) {
+            throw new IndexOutOfBoundsException("Index 2 " + index2 + " isn't in range (0 - " + (size - 1) + ")");
+        }
+        if (index1>index2){
+            int index = index1;
+            index1 = index2;
+            index2 = index;
+        }
+        Item<E> item1 = getItem(index1);
+        Item<E> item2 = getItem(index2);
+        item1.prev.next = item2.next;
+        item2.next.prev = item1.prev;
     }
 
     private int check(E itemForCheck) {
@@ -134,23 +156,16 @@ public class LinkedSet<E> {
         return item;
     }
 
+    private Item<E> getItem(E value) {
+        return getItem(get(value));
+    }
+
     public E get(int index) {
-        Item<E> item = main;
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index " + index + " isn't in range (0 - " + (size - 1) + ")");
-        }
-        for (int i = 0; i <= index; i++) {
-            item = item.next;
-        }
-        return item.value;
+        return getItem(index).value;
     }
 
     public int get(E itemForGetId) {
-        Item<E> item = main;
-        for (int i = 0; i <= size; i++) {
-            item = item.next;
-        }
-        return 5;
+        return check(itemForGetId);
     }
 
     public int size() {
